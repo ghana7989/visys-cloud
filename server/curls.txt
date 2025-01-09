@@ -1,0 +1,48 @@
+curl -X POST http://localhost:3000/api/webagent/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user_id": "pavan.ch@gmail.com",
+    "password": "welcome1"
+  }'
+
+curl -X POST http://localhost:3000/api/customers \
+  -H "Content-Type: application/json" \
+  -d '{
+    "company_name": "Test Company",
+    "company_desc": "A test company description",
+    "contact_name": "John Doe",
+    "address1": "123 Main Street",
+    "address2": "Suite 100",
+    "city": "Bangalore",
+    "district": "Urban",
+    "zip_code": "560001",
+    "state": "Karnataka",
+    "country": "INDIA",
+    "email": "john@testcompany.com",
+    "phone_no1": "9876543210",
+    "phone_no2": "9876543211",
+    "password_arg1": "password123",
+    "password_arg2": "password456"
+  }' | jq
+
+curl -X POST http://localhost:3000/api/customers/additional-details \
+  -H "Content-Type: application/json" \
+  -d '{
+    "cust_id": "CUST1000",
+    "category_id": "CAT001",
+    "theme_id": "THEME001",
+    "uiux_id": "UIUX001",
+    "web_agent_id": 1,
+    "cust_working_days": "Monday-Friday",
+    "cust_working_hrs": "9:00-18:00",
+    "instagram_flag": "N",
+    "whatsapp_flag": "N",
+    "facebook_flag": "N",
+    "chatbot_flag": "N",
+    "youtube_flag": "N",
+    "google_analytics": "Y",
+    "google_map_latitude": "12.9716",
+    "google_map_longitude": "77.5946",
+    "arg1": "N"
+  }' | jq
+

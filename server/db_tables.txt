@@ -1,0 +1,237 @@
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+vo_dashboard.t_customer_details
+vo_dashboard.t_customer_additional_details
+vo_dashboard.t_customer_browse_upload_images  (This are upload image URL's. oss_theme_oss_url_1)
+vo_dashboard.t_customer_mobile_upload_images (This are upload image URL's. oss_theme_oss_url_1)
+vo_dashboard.t_customer_preview_website (For Preview Website) (cust_id (vo_dashboard.t_customer_details), preview_url)
+vo_dashboard.t_customer_payment_details (Payment Details)
+vo_dashboard.t_customer_website_domain_details (Domain Name)
+
+#######################################################################
+#######################################################################
+#######################################################################
+#######################################################################
+
+create sequence vo_dashboard.s_customer_details start 1000;
+
+create table if not exists vo_dashboard.t_customer_details
+(
+    cust_id character varying(100) not null default 'CUST'||nextval('vo_dashboard.s_customer_details'),
+    company_name character varying(1000) not null,
+    company_desc character varying(1000) not null,
+    contact_name character varying(1000) not null,
+    address1 character varying(1000),
+    address2 character varying(1000),
+    address3 character varying(1000),
+    address4 character varying(1000),
+    address5 character varying(1000),
+    city character varying(1000) not null,
+    district character varying(1000) not null,
+    zip_code character varying(1000) not null,
+    state character varying(1000) not null,
+    country character varying(1000) not null default 'INDIA',
+    email character varying(1000) not null,
+    phone_no1 character varying(1000),
+    phone_no2 character varying(1000),
+    password_arg1 character varying(1000),
+    password_arg2 character varying(1000),
+    create_date date not null default current_date,
+    active_flag character varying(1) not null default 'N',
+    constraint t_customer_details_pkey primary key (cust_id)
+)
+tablespace ts_dashboard_t01;
+
+create table if not exists vo_dashboard.t_customer_additional_details
+(
+    category_id character varying(10) not null,
+    theme_id character varying(10) not null,
+    uiux_id varchar(100) not null,
+    cust_id character varying(100),
+    cust_working_days character varying(50),
+    cust_working_hrs character varying(50),
+    instagram_flag character varying(1) not null default 'N',
+    whatsapp_flag character varying(1) not null default 'N',
+    facebook_flag character varying(1) not null default 'N',
+    chatbot_flag character varying(1) not null default 'N',
+    youtube_flag character varying(1) not null default 'N',
+    google_analytics character varying(1) not null default 'Y',
+    google_map_latitude character varying(50) not null,
+    google_map_longitude character varying(50) not null,
+    arg1 character varying(200 ) not null default 'N',
+    web_agent_id integer not null,
+    foreign key (web_agent_id) references vo_admin_portal.t_visys_web_agents(web_agent_id),
+    foreign key (cust_id) references vo_dashboard.t_customer_details(cust_id),
+    foreign key (category_id) references vo_admin_portal.t_master_category_details (category_id),
+    foreign key (theme_id) references vo_admin_portal.t_master_theme_details (theme_id),
+    foreign key (uiux_id) references vo_admin_portal.t_uiux_master_details (uiux_id)
+)
+tablespace ts_dashboard_t01;
+
+create table if not exists vo_dashboard.t_customer_browse_upload_images
+(
+    category_id character varying(10) not null,
+    theme_id character varying(10) not null,
+    uiux_id varchar(100) not null,
+    cust_id character varying(100) not null,
+    oss_theme_oss_url_1 character varying(1000),
+    oss_theme_oss_url_2 character varying(1000),
+    oss_theme_oss_url_3 character varying(1000),
+    oss_theme_oss_url_4 character varying(1000),
+    oss_theme_oss_url_5 character varying(1000),
+    oss_theme_oss_url_6 character varying(1000),
+    oss_theme_oss_url_7 character varying(1000),
+    oss_theme_oss_url_8 character varying(1000),
+    oss_theme_oss_url_9 character varying(1000),
+    oss_theme_oss_url_10 character varying(1000),
+    oss_uiux_oss_url_1 character varying(1000),
+    oss_uiux_oss_url_2 character varying(1000),
+    oss_uiux_oss_url_3 character varying(1000),
+    oss_uiux_oss_url_4 character varying(1000),
+    oss_uiux_oss_url_5 character varying(1000),
+    oss_uiux_oss_url_6 character varying(1000),
+    oss_uiux_oss_url_7 character varying(1000),
+    oss_uiux_oss_url_8 character varying(1000),
+    oss_uiux_oss_url_9 character varying(1000),
+    oss_uiux_oss_url_10 character varying(1000),
+    arg_oss_url_1 character varying(1000),
+    arg_oss_url_2 character varying(1000),
+    arg_oss_url_3 character varying(1000),
+    arg_oss_url_4 character varying(1000),
+    arg_oss_url_5 character varying(1000),
+    arg_oss_url_6 character varying(1000),
+    arg_oss_url_7 character varying(1000),
+    arg_oss_url_8 character varying(1000),
+    arg_oss_url_9 character varying(1000),
+    arg_oss_url_10 character varying(1000),
+    foreign key (cust_id) references vo_dashboard.t_customer_details(cust_id),
+    foreign key (category_id) references vo_admin_portal.t_master_category_details (category_id),
+    foreign key (theme_id) references vo_admin_portal.t_master_theme_details (theme_id),
+    foreign key (uiux_id) references vo_admin_portal.t_uiux_master_details (uiux_id)
+)
+tablespace ts_dashboard_t01;
+
+create table if not exists vo_dashboard.t_customer_mobile_upload_images
+(
+    category_id character varying(10) not null,
+    theme_id character varying(10) not null,
+    uiux_id varchar(100) not null,
+    cust_id character varying(100) not null,
+    oss_theme_oss_url_1 character varying(1000),
+    oss_theme_oss_url_2 character varying(1000),
+    oss_theme_oss_url_3 character varying(1000),
+    oss_theme_oss_url_4 character varying(1000),
+    oss_theme_oss_url_5 character varying(1000),
+    oss_theme_oss_url_6 character varying(1000),
+    oss_theme_oss_url_7 character varying(1000),
+    oss_theme_oss_url_8 character varying(1000),
+    oss_theme_oss_url_9 character varying(1000),
+    oss_theme_oss_url_10 character varying(1000),
+    oss_uiux_oss_url_1 character varying(1000),
+    oss_uiux_oss_url_2 character varying(1000),
+    oss_uiux_oss_url_3 character varying(1000),
+    oss_uiux_oss_url_4 character varying(1000),
+    oss_uiux_oss_url_5 character varying(1000),
+    oss_uiux_oss_url_6 character varying(1000),
+    oss_uiux_oss_url_7 character varying(1000),
+    oss_uiux_oss_url_8 character varying(1000),
+    oss_uiux_oss_url_9 character varying(1000),
+    oss_uiux_oss_url_10 character varying(1000),
+    arg_oss_url_1 character varying(1000),
+    arg_oss_url_2 character varying(1000),
+    arg_oss_url_3 character varying(1000),
+    arg_oss_url_4 character varying(1000),
+    arg_oss_url_5 character varying(1000),
+    arg_oss_url_6 character varying(1000),
+    arg_oss_url_7 character varying(1000),
+    arg_oss_url_8 character varying(1000),
+    arg_oss_url_9 character varying(1000),
+    arg_oss_url_10 character varying(1000),
+    foreign key (cust_id) references vo_dashboard.t_customer_details(cust_id),
+    foreign key (category_id) references vo_admin_portal.t_master_category_details (category_id),
+    foreign key (theme_id) references vo_admin_portal.t_master_theme_details (theme_id),
+    foreign key (uiux_id) references vo_admin_portal.t_uiux_master_details (uiux_id)
+)
+tablespace ts_dashboard_t01;
+
+create table if not exists vo_dashboard.t_customer_upload_zipfile
+(
+    category_id character varying(10) not null,
+    theme_id character varying(10) not null,
+    uiux_id varchar(100) not null,
+    cust_id character varying(100) not null,
+    oss_url character varying(1000) not null,
+    zip_file_name character varying(1000) not null,
+    upload_date date not null default current_date,
+    foreign key (cust_id) references vo_dashboard.t_customer_details(cust_id),
+    foreign key (category_id) references vo_admin_portal.t_master_category_details (category_id),
+    foreign key (theme_id) references vo_admin_portal.t_master_theme_details (theme_id),
+    foreign key (uiux_id) references vo_admin_portal.t_uiux_master_details (uiux_id)
+)
+tablespace ts_dashboard_t01;
+
+create table if not exists vo_dashboard.t_customer_preview_website
+(
+    cust_id character varying(100),
+    preview_url character varying(1000) not null,
+    preview_url_date date not null default current_date,
+    arg1 character varying(1000),
+    arg2 character varying(1000),
+    arg3 character varying(1000),
+    foreign key (cust_id) references vo_dashboard.t_customer_details(cust_id)
+)
+tablespace ts_dashboard_t01;
+
+create sequence vo_dashboard.s_customer_payment_details start 1000;
+
+create table if not exists vo_dashboard.t_customer_payment_details
+(
+    cust_id character varying(100),
+    payment_id varchar(100) not null default 'PYMT'||nextval('vo_dashboard.s_customer_payment_details'),
+    payment_amount integer not null,
+    payment_date date not null default current_date,
+    payment_flag varchar(1) not null default 'N',
+    arg1 character varying(1000),
+    arg2 character varying(1000),
+    arg3 character varying(1000),
+    primary key (payment_id),
+    foreign key (cust_id) references vo_dashboard.t_customer_details(cust_id)
+)
+tablespace ts_dashboard_t01;
+
+
+create sequence vo_dashboard.s_customer_website_domain_details start 1000;
+
+create table if not exists vo_dashboard.t_customer_website_domain_details
+(
+    cust_id character varying(100),
+    domain_id varchar(100) not null default 'DOMAIN'||nextval('vo_dashboard.s_customer_website_domain_details'),
+    payment_id varchar(100) not null,
+    domain_name character varying(1000) not null,
+    website_deployed_flag character varying(1000) not null default 'N',
+    website_url character varying(1000) not null,
+    arg1 character varying(1000),
+    arg2 character varying(1000),
+    arg3 character varying(1000),
+    primary key (domain_name),
+    foreign key (cust_id) references vo_dashboard.t_customer_details(cust_id),
+    foreign key (payment_id) references vo_dashboard.t_customer_payment_details(payment_id)
+)
+tablespace ts_dashboard_t01;
+
+create table if not exists vo_dashboard.t_customer_website_deployed_status
+(
+    cust_id character varying(100),
+    domain_id varchar(100) not null,
+    website_deployed_flag character varying(1000) not null default 'N',
+    website_url character varying(1000) not null,
+    website_deployed_date date not null default current_date,
+    arg1 character varying(1000),
+    arg2 character varying(1000),
+    arg3 character varying(1000),
+    foreign key (cust_id) references vo_dashboard.t_customer_details(cust_id)
+)
+tablespace ts_dashboard_t01;
