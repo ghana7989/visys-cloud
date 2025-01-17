@@ -6,7 +6,9 @@ import { healthRouter } from './routes/health';
 import { customerRouter } from './routes/customers';
 import { webAgentRouter } from './routes/webagent';
 
-dotenv.config();
+const envFileName = `.env.${process.env.NODE_ENV || "development"}`
+console.log(envFileName)
+dotenv.config({ path: envFileName });
 const app: Express = express();
 const port = process.env.PORT || 3000;
 

@@ -4,8 +4,10 @@ import dotenv from 'dotenv';
 import WebAgent from '../models/WebAgent';
 import CustomerDetails from '../models/CustomerDetails';
 
-dotenv.config();
 
+const envFileName = `.env.${process.env.NODE_ENV || "development"}`
+console.log(envFileName)
+dotenv.config({ path: envFileName });
 const dbConfig = {
   name: process.env.DB_NAME,
   user: process.env.DB_USER,
@@ -32,7 +34,7 @@ const sequelize = new Sequelize({
   clientMinMessages: 'notice',
   schema: dbConfig.schema,
   logging: (sql: string, timing?: number) => {
-    if(!timing) {
+    if (!timing) {
       console.log(sql);
     } else {
       console.log(`${sql} (${timing}ms)`);
